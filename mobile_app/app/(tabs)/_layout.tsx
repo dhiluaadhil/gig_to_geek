@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import { Colors } from '@/constants/Theme';
+import { Home, Banknote, Target, User } from 'lucide-react-native';
 
 export default function TabsLayout() {
   return (
@@ -23,7 +24,7 @@ export default function TabsLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon emoji="🏠" color={color} focused={focused} />
+            <Home color={color} size={focused ? 24 : 22} />
           ),
         }}
       />
@@ -32,7 +33,7 @@ export default function TabsLayout() {
         options={{
           title: 'Transactions',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon emoji="💸" color={color} focused={focused} />
+            <Banknote color={color} size={focused ? 24 : 22} />
           ),
         }}
       />
@@ -41,7 +42,7 @@ export default function TabsLayout() {
         options={{
           title: 'Goals',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon emoji="🎯" color={color} focused={focused} />
+            <Target color={color} size={focused ? 24 : 22} />
           ),
         }}
       />
@@ -50,7 +51,7 @@ export default function TabsLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon emoji="👤" color={color} focused={focused} />
+            <User color={color} size={focused ? 24 : 22} />
           ),
         }}
       />
@@ -58,12 +59,3 @@ export default function TabsLayout() {
   );
 }
 
-// Emoji-based tab icon (no vector icon dependency issues)
-function TabIcon({ emoji, focused }: { emoji: string; color: string; focused: boolean }) {
-  const { Text, View } = require('react-native');
-  return (
-    <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 4 }}>
-      <Text style={{ fontSize: focused ? 22 : 20, opacity: focused ? 1 : 0.6 }}>{emoji}</Text>
-    </View>
-  );
-}

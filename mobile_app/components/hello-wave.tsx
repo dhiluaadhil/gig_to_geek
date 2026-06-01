@@ -1,11 +1,11 @@
 import Animated from 'react-native-reanimated';
+import { Hand } from 'lucide-react-native';
+import { Colors } from '@/constants/Theme';
 
 export function HelloWave() {
   return (
-    <Animated.Text
+    <Animated.View
       style={{
-        fontSize: 28,
-        lineHeight: 32,
         marginTop: -6,
         animationName: {
           '50%': { transform: [{ rotate: '25deg' }] },
@@ -13,7 +13,7 @@ export function HelloWave() {
         animationIterationCount: 4,
         animationDuration: '300ms',
       }}>
-      👋
-    </Animated.Text>
+      <Hand size={28} color={Colors.accent1} />
+    </Animated.View>
   );
 }

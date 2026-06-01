@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback } from 'react';
-import api from '../api/client';
+import { authService } from '../services/authService';
+import { profileService } from '../services/profileService';
 
 const AuthContext = createContext(null);
 
@@ -14,24 +15,17 @@ export function AuthProvider({ children }) {
   });
 
   const login = useCallback(async (email, password) => {
-    const form = new URLSearchParams();
-    form.append('username', email);
-    form.append('password', password);
-
-    const { data: tokenData } = await api.post('/auth/login', form, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    });
+    const tokenData = await authService.login(email, password);
     localStorage.setItem('gg_token', tokenData.access_token);
 
-    const { data: me } = await api.get('/auth/me');
+    const me = await authService.getMe();
     localStorage.setItem('gg_user', JSON.stringify(me));
     setUser(me);
     return me;
   }, []);
 
   const register = useCallback(async (payload) => {
-    const { data } = await api.post('/auth/register', payload);
-    return data;
+    return await authService.register(payload);
   }, []);
 
   const logout = useCallback(() => {
@@ -41,7 +35,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const updateProfile = useCallback(async (payload) => {
-    const { data: updated } = await api.patch('/auth/me', payload);
+    const updated = await profileService.updateProfile(payload);
     localStorage.setItem('gg_user', JSON.stringify(updated));
     setUser(updated);
     return updated;

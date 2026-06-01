@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
-import LoginPage        from './pages/LoginPage';
-import SignupPage       from './pages/SignupPage';
-import HomePage         from './pages/HomePage';
-import OnboardingPage   from './pages/OnboardingPage';
+import LoginPage        from './features/auth/LoginPage';
+import SignupPage       from './features/auth/SignupPage';
+import DashboardPage    from './features/dashboard/DashboardPage';
+import OnboardingPage   from './features/onboarding/OnboardingPage';
+import ProfilePage      from './features/profile/ProfilePage';
 
 // Smart guard: authenticated but profile not completed → go to /onboarding
 function HomeGuard() {
@@ -14,7 +15,7 @@ function HomeGuard() {
   }
   return (
     <PrivateRoute>
-      <HomePage />
+      <DashboardPage />
     </PrivateRoute>
   );
 }
@@ -40,6 +41,16 @@ export default function App() {
 
           {/* Protected dashboard */}
           <Route path="/home" element={<HomeGuard />} />
+
+          {/* Profile management */}
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <ProfilePage />
+              </PrivateRoute>
+            }
+          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/login" replace />} />

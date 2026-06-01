@@ -1,33 +1,40 @@
-// GigToGeek Mobile — Design Tokens
+// GigToGeek Mobile — Premium Design Tokens
 export const Colors = {
-  bgPrimary:    '#030504',
-  bgSecondary:  '#0a100d',
-  bgCard:       'rgba(255,255,255,0.02)',
-  bgCardHover:  'rgba(44, 211, 111, 0.04)',
-  border:       'rgba(44, 211, 111, 0.12)',
+  // Backgrounds
+  bgPrimary:    '#fcfcfd',
+  bgSecondary:  '#f3f4f6',
+  bgCard:       '#ffffff',
+  bgCardHover:  '#f9fafb',
+  border:       '#e5e7eb',
+  borderSubtle: '#f3f4f6',
 
-  accent1: '#2CD36F',   // neon green
-  accent2: '#00E676',   // bright green
-  accent3: '#10b981',   // teal/green
-  success: '#2CD36F',
-  error:   '#ef4444',
-  warning: '#f59e0b',
+  // Accents (Subtle Teal & Slate)
+  accent1: '#0d9488',   // primary teal
+  accent2: '#0f766e',
+  accent3: '#115e59',
+  
+  // Status
+  success: '#059669',
+  error:   '#dc2626',
+  warning: '#d97706',
 
-  textPrimary:   '#f1f5f9',
-  textSecondary: '#94a3b8',
-  textMuted:     '#475569',
+  // Typography
+  textPrimary:   '#111827', // charcoal
+  textSecondary: '#4b5563', // medium gray
+  textMuted:     '#9ca3af', // light gray
 
-  // gradients expressed as array for LinearGradient
-  gradientBlue:   ['#2CD36F', '#10b981'] as const,
-  gradientCyan:   ['#00E676', '#2CD36F'] as const,
-  gradientGold:   ['#f59e0b', '#ef4444'] as const,
+  // Linear gradients for buttons/highlights if absolutely necessary
+  // Keeping it flat is better, but retaining types for existing components.
+  gradientBlue:   ['#0f172a', '#1e293b'] as const, // dark slate
+  gradientCyan:   ['#0d9488', '#0f766e'] as const, // teal
+  gradientGold:   ['#d97706', '#b45309'] as const,
 };
 
 export const Radii = {
-  sm: 10,
-  md: 16,
-  lg: 22,
-  xl: 28,
+  sm: 4,
+  md: 6,
+  lg: 8,
+  xl: 12,
   full: 9999,
 };
 
@@ -41,12 +48,12 @@ export const Spacing = {
 };
 
 export const FontSize = {
-  xs:   11,
+  xs:   12,
   sm:   13,
   base: 15,
   md:   17,
   lg:   20,
   xl:   24,
-  xxl:  30,
-  xxxl: 36,
+  xxl:  28,
+  xxxl: 34,
 };

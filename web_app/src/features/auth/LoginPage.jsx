@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
+import { AlertTriangle, ArrowRight } from 'lucide-react';
+import logoImage from '../../assets/logo.png';
 import './Auth.css';
 
 export default function LoginPage() {
@@ -35,29 +37,23 @@ export default function LoginPage() {
 
   return (
     <div className="auth-page">
-      <div className="mesh-bg"><div className="mesh-orb" /></div>
-
       {/* Brand */}
       <Link to="/" className="auth-brand" aria-label="GigToGeek home">
-        <div className="brand-logo">
-          <span className="brand-icon">⚡</span>
-        </div>
+        <img src={logoImage} alt="GigToGeek Logo" className="brand-logo-img" />
         <span className="brand-name">GigToGeek</span>
       </Link>
 
       <main className="auth-main">
-        <div className="glass-card auth-card">
-          {/* Header */}
+        <div className="auth-card">
           <div className="auth-header">
             <h1 className="auth-title">Welcome back</h1>
-            <p className="auth-subtitle">Sign in to your GigToGeek account</p>
+            <p className="auth-subtitle">Sign in to your account to continue</p>
           </div>
 
-          {/* Form */}
           <form id="login-form" className="auth-form" onSubmit={handleSubmit} noValidate>
             {error && (
               <div role="alert" className="alert alert-error">
-                <span className="alert-icon">⚠</span>
+                <AlertTriangle size={16} />
                 {error}
               </div>
             )}
@@ -97,25 +93,18 @@ export default function LoginPage() {
               type="submit"
               className="btn-primary"
               disabled={loading}
+              style={{ marginTop: '8px' }}
             >
-              {loading ? <span className="spinner" aria-hidden="true" /> : null}
-              {loading ? 'Signing in…' : 'Sign in'}
+              {loading ? <span className="spinner" aria-hidden="true" /> : 'Sign in'}
             </button>
           </form>
 
-          {/* Footer */}
           <p className="auth-footer-text">
             Don&apos;t have an account?{' '}
             <Link to="/signup" id="go-to-signup" className="auth-link">
-              Create one →
+              Sign up <ArrowRight size={14} style={{ verticalAlign: 'middle', marginLeft: '2px' }} />
             </Link>
           </p>
-        </div>
-
-        {/* Decorative stats pill */}
-        <div className="auth-badge" aria-hidden="true">
-          <span className="badge-dot" />
-          <span>2,400+ gig workers saving smarter</span>
         </div>
       </main>
     </div>

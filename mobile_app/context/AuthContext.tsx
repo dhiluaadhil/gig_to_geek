@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import api from '@/lib/api';
+import { authService } from '@/services/authService';
 
 export interface UserProfile {
   id: number;
@@ -11,6 +11,9 @@ export interface UserProfile {
   is_superuser: boolean;
   occupation: string | null;
   monthly_income_estimate: number | null;
+  current_balance: number;
+  monthly_saving_goal: number;
+  income_per_occupation: any[];
   created_at: string;
 }
 
@@ -55,22 +58,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
-    const form = new URLSearchParams();
-    form.append('username', email);
-    form.append('password', password);
-
-    const { data: tokenData } = await api.post('/auth/login', form.toString(), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    });
+    const tokenData = await authService.login(email, password);
     await AsyncStorage.setItem('gg_token', tokenData.access_token);
 
-    const { data: me } = await api.get('/auth/me');
+    const me = await authService.getMe();
     await AsyncStorage.setItem('gg_user', JSON.stringify(me));
     setUser(me);
   }, []);
 
   const register = useCallback(async (payload: RegisterPayload) => {
-    await api.post('/auth/register', payload);
+    await authService.register(payload);
   }, []);
 
   const logout = useCallback(async () => {
